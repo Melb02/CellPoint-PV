@@ -1,8 +1,11 @@
+// Importar la configuración de Firebase
+import app from './firebase-config.js';
+
 // Importar las funciones necesarias de Firebase
-import { getDatabase, ref, set, get, child, query, orderByChild } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 // Obtener la referencia a la base de datos de Firebase
-const db = getDatabase();
+const db = getDatabase(app);  // Usando la app configurada
 
 // Registrar cliente en Firebase
 document.getElementById("register-form").addEventListener("submit", (e) => {
