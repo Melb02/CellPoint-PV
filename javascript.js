@@ -1,5 +1,5 @@
 // Importar las funciones necesarias de Firebase
-import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+import { getDatabase, ref, set, get, child, query, orderByChild } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 // Obtener la referencia a la base de datos de Firebase
 const db = getDatabase();
@@ -39,27 +39,16 @@ document.getElementById("buscar-btn").addEventListener("click", () => {
     if (buscarNombre) {
         const dbRef = ref(db);
 
-        // Buscar el cliente por nombre (usando el formato ID único que hemos generado)
-        get(child(dbRef, "Cliente"))
+        // Buscar el cliente por nombre (mejor con un índice si tienes muchos registros)
+        get(query(ref(db, "Cliente"), orderByChild("Nombre"), equalTo(buscarNombre)))
             .then((snapshot) => {
                 if (snapshot.exists()) {
-                    let clienteEncontrado = null;
-
-                    // Recorre todos los clientes y verifica si el nombre coincide
-                    snapshot.forEach((childSnapshot) => {
-                        const data = childSnapshot.val();
-                        if (data.Nombre.toLowerCase() === buscarNombre) {
-                            clienteEncontrado = data;
-                        }
-                    });
-
-                    if (clienteEncontrado) {
-                        resultadoDiv.textContent = `Cliente encontrado: ${clienteEncontrado.Nombre}, Teléfono: ${clienteEncontrado.Celular}`;
-                    } else {
-                        resultadoDiv.textContent = "Cliente no encontrado.";
-                    }
+                    const cliente = snapshot.val();
+                    const clienteId = Object.keys(cliente)[0]; // Obtener el primer cliente encontrado
+                    const data = cliente[clienteId];
+                    resultadoDiv.textContent = `Cliente encontrado: ${data.Nombre}, Teléfono: ${data.Celular}`;
                 } else {
-                    resultadoDiv.textContent = "No hay clientes registrados.";
+                    resultadoDiv.textContent = "Cliente no encontrado.";
                 }
             })
             .catch((error) => {
