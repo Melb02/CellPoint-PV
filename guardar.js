@@ -1,12 +1,12 @@
-function guardar(){
+tfunction guardar(){
     db.collection("Cliente").add({
-        nombre: "Ada",
-        telefono: "Lovelace"
+        nombre: document.getElementById("name").value,
+        telefono: document.getElementById("telefono").value
     })
     .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+        alert("registro exitoso");
     })
     .catch((error) => {
-        console.error("Error adding document: ", error);
+        alert("registro errado");
     });
 }
