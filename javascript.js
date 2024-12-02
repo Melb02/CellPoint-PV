@@ -1,65 +1,60 @@
-// Importar la configuración de Firebase
-import app from './firebase-config.js';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-// Importar las funciones necesarias de Firebase
-import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+// Inicializar Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCyfv9Ou_IV7uNHfh8MfpfU106McXf5998",
+  authDomain: "cellpoint-pv.firebaseapp.com",
+  projectId: "cellpoint-pv",
+  storageBucket: "cellpoint-pv.firebasestorage.app",
+  messagingSenderId: "201636386547",
+  appId: "1:201636386547:web:140ae27649f946d87f4986"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// Obtener la referencia a la base de datos de Firebase
-const db = getDatabase(app);  // Usando la app configurada
-
-// Registrar cliente en Firebase
-document.getElementById("register-form").addEventListener("submit", (e) => {
-    e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+// Registrar cliente
+document.getElementById("register-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
 
     if (nombre && telefono) {
-        const clienteId = nombre.toLowerCase().replace(/\s+/g, "_"); // ID único basado en el nombre
-
-        // Escribir los datos del cliente en Firebase
-        set(ref(db, 'Cliente/' + clienteId), {
-            Nombre: nombre,
-            Celular: telefono
-        })
-        .then(() => {
-            alert("Cliente registrado exitosamente.");
-        })
-        .catch((error) => {
-            console.error("Error al registrar cliente:", error);
-            alert("Hubo un error al registrar al cliente.");
-        });
+        try {
+            const clienteRef = doc(collection(db, "Cliente"));
+            await setDoc(clienteRef, {
+                Nombre: nombre,
+                Celular: telefono
+            });
+            alert("Cliente registrado con éxito");
+            document.getElementById("register-form").reset();
+        } catch (error) {
+            alert("Error al registrar el cliente: " + error.message);
+        }
     } else {
-        alert("Por favor, ingresa el nombre y teléfono.");
+        alert("Por favor, completa todos los campos.");
     }
 });
 
-// Buscar cliente en Firebase
-document.getElementById("buscar-btn").addEventListener("click", () => {
-    const buscarNombre = document.getElementById("buscar-nombre").value.trim().toLowerCase();
-    const resultadoDiv = document.getElementById("resultado-busqueda");
+// Buscar cliente
+document.getElementById("buscar-btn").addEventListener("click", async function () {
+    const buscarNombre = document.getElementById("buscar-nombre").value.trim();
 
     if (buscarNombre) {
-        const dbRef = ref(db);
-
-        // Buscar el cliente por nombre (mejor con un índice si tienes muchos registros)
-        get(query(ref(db, "Cliente"), orderByChild("Nombre"), equalTo(buscarNombre)))
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const cliente = snapshot.val();
-                    const clienteId = Object.keys(cliente)[0]; // Obtener el primer cliente encontrado
-                    const data = cliente[clienteId];
-                    resultadoDiv.textContent = `Cliente encontrado: ${data.Nombre}, Teléfono: ${data.Celular}`;
-                } else {
-                    resultadoDiv.textContent = "Cliente no encontrado.";
-                }
-            })
-            .catch((error) => {
-                console.error("Error al buscar el cliente:", error);
-                resultadoDiv.textContent = "Hubo un error al buscar el cliente.";
-            });
+        try {
+            const clienteSnapshot = await getDoc(doc(db, "Cliente", buscarNombre));
+            if (clienteSnapshot.exists()) {
+                const data = clienteSnapshot.data();
+                document.getElementById("resultado-busqueda").innerText =
+                    `Nombre: ${data.Nombre}\nCelular: ${data.Celular}`;
+            } else {
+                document.getElementById("resultado-busqueda").innerText = "Cliente no encontrado.";
+            }
+        } catch (error) {
+            alert("Error al buscar el cliente: " + error.message);
+        }
     } else {
         alert("Por favor, ingresa un nombre para buscar.");
     }
 });
-
