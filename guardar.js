@@ -1,6 +1,6 @@
-tfunction guardar(){
+function guardar(){
     db.collection("Cliente").add({
-        nombre: document.getElementById("name").value,
+        nombre: document.getElementById("nombre").value,
         telefono: document.getElementById("telefono").value
     })
     .then((docRef) => {
