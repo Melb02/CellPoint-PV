@@ -15,14 +15,14 @@
             <input type="text" id="telefono" placeholder="Teléfono" required>
             
         </form>
-        <button class="btn btn-primary" onclick="guardar()">Registrar</button>
+     
     </div>
 
     <div id="search-container">
         <h2>Buscar Cliente</h2>
-        <input type="text" id="buscar-nombre" placeholder="Nombre">
-        <button id="buscar-btn" onclick="guardar()">Buscar</button>
-        <div id="resultado-busqueda"></div>
+        <input type="text" id="buscar-nombre" placeholder="Nombre a buscar">
+        <button class="btn btn-primary" onclick="buscar()">Buscar</button>
+        <h1 id="resultado-busqueda"></h1>
     </div>
 
 
@@ -30,6 +30,7 @@
     <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
-    <script src="/js/configuracion.js"></script> 
-    <script src="/js/guardar.js"></script>
+    <script src="configuracion.js"></script> 
+    <script src="guardar.js"></script>
+    <script src="buscar.js"></script>
 </html>
