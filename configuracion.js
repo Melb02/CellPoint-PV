@@ -1,7 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
-
-// Inicializar Firebase
+// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCyfv9Ou_IV7uNHfh8MfpfU106McXf5998",
   authDomain: "cellpoint-pv.firebaseapp.com",
@@ -11,7 +8,10 @@ const firebaseConfig = {
   appId: "1:201636386547:web:140ae27649f946d87f4986"
 };
 
-var db = firebase.firestore();
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Inicializar Firebase si no se ha inicializado aún
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
+// Inicializar Firestore
+const db = firebase.firestore();
