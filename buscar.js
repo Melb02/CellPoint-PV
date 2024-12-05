@@ -1,35 +1,36 @@
 function buscar() {
-    // Obtener el valor del campo de búsqueda
-    const nombreABuscar = document.getElementById("buscar-nombre").value.trim();
+    const correoABuscar = document.getElementById("buscar-correo").value.trim();
 
-    // Validar que el campo no esté vacío
-    if (nombreABuscar === "") {
-        alert("Por favor, ingresa un nombre para buscar.");
+    if (correoABuscar === "") {
+        alert("Por favor, ingresa un correo para buscar.");
         return;
     }
 
-    // Consultar Firestore
     db.collection("Cliente")
-        .where("nombre", "==", nombreABuscar) // Filtrar por el campo "nombre"
+        .where("correo", "==", correoABuscar)
         .get()
         .then((querySnapshot) => {
-            // Si no hay resultados
+            const resultContainer = document.getElementById("result-container");
+            const resultadoBusqueda = document.getElementById("resultado-busqueda");
+            resultadoBusqueda.innerHTML = ""; // Limpiar resultados previos
+
             if (querySnapshot.empty) {
-                document.getElementById("resultado-busqueda").innerText = "No se encontró ningún cliente.";
+                alert("No se encontró ningún cliente.");
+                resultContainer.style.display = "none"; // Ocultar resultado si no hay datos
                 return;
             }
 
-            // Mostrar resultados
-            let resultados = "";
+            resultContainer.style.display = "block"; // Mostrar contenedor de resultados
             querySnapshot.forEach((doc) => {
                 const cliente = doc.data();
-                resultados += `Nombre: ${cliente.nombre}, Teléfono: ${cliente.telefono}<br>`;
+                resultadoBusqueda.innerHTML = `
+                    <p>Nombre: ${cliente.nombre}, Teléfono: ${cliente.telefono}, Correo: ${cliente.correo}</p>
+                    <button class="btn" onclick="iniciarFactura('${doc.id}')">Iniciar Factura</button>
+                `;
             });
-            document.getElementById("resultado-busqueda").innerHTML = resultados;
         })
         .catch((error) => {
-            console.error("Error al buscar el cliente: ", error);
+            console.error("Error al buscar el cliente:", error);
             alert("Hubo un error al buscar.");
         });
 }
-
