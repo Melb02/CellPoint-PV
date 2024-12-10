@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font awesome icon (links) -->
+    <link rel="stylesheet" href="fontawesome.css" />
+    <script src="./fontawesome.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Styling css file -->
+    <link rel="stylesheet" href="./style.css" />
+    <!--link rel="stylesheet" href="./style_verde.css" --/-->
+    <title>Responsive header</title>
+  </head>
+  <body>
+    <script>
+      const toggle = () => {
+        document.getElementById("nav").classList.toggle("navactive");
+      };
+    </script>
+    <header>
+     
+      <div class="logo">
+        <img href="index.html" src="logo1.png" class="logo1">
+        
+      </div>
+      <i class="fa fa-bars" id="menuIcon" onclick="toggle()"  ></i>
+      
+      <div class="navbar" id="nav">
+        <div class = "brand">
+          <h1>Cellpoint-PV</h1>
+        </div>
+        <ul>
+          <li>
+            <i class="fa-solid fa-house" id="headIcon"></i></i>
+            <a href="index.html"> Inicio   </a>
+          </li>
+          <li>
+            <i class="fa-solid fa-file-invoice" id="headIcon"></i>
+            <a href="factura.html"> Factura</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-warehouse" id="headIcon"></i>
+            <a href="#"> Inventario</a>
+          </li>
+          <li>
+            <span class="fas fa-lock" id="headIcon"></span>
+            <a href="#"> Cuenta</a>
+          </li>
+          <li>
+            <span class="fas fa-sign-out" id="headIcon"></span>
+            <a href="#"> Salir </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div id="main-container">
+      <!-- Columna izquierda -->
+      <div id="left-column">
+          <!-- Buscador de Clientes -->
+          <div id="search-container">
+              <h2>Buscar Cliente</h2>
+              <input type="text" id="buscar-correo" placeholder="Correo a buscar">
+              <button class="btn" onclick="buscar()">Buscar</button>
+          </div>
+
+          <!-- Resultado -->
+          <div id="result-container" style="display: none;">
+              <h2>Resultado</h2>
+              <div id="resultado-busqueda"></div>
+          </div>
+      </div>
+
+      <!-- Formulario de Registro -->
+      <div id="form-container">
+          <h2>Registrar Cliente</h2>
+          <form id="register-form" onsubmit="event.preventDefault(); guardar();">
+              <input type="text" id="nombre" placeholder="Nombre" required>
+              <input type="text" id="telefono" placeholder="Teléfono">
+              <input type="email" id="correo" placeholder="Correo Electrónico" required>
+              <input type="text" id="cedula" placeholder="Cédula">
+              <button type="submit" class="btn">Registrar</button>
+          </form>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
+  <script src="configuracion.js"></script>
+  <script src="guardar.js"></script>
+  <script src="buscar.js"></script>
+</body>
+<footer class="footer1">
+  <p>&copy; 2024 CellPoint P-V. Todos los derechos reservados.</p>
+  <p>
+      <a href="https://www.facebook.com" target="_blank" style="text-decoration: none; color: #007bff;">Facebook</a> | 
+      <a href="https://www.twitter.com" target="_blank" style="text-decoration: none; color: #007bff;">Twitter</a> | 
+      <a href="https://www.instagram.com" target="_blank" style="text-decoration: none; color: #007bff;">Instagram</a>
+  </p>
+</footer>
+</html>
