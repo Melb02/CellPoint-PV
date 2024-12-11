@@ -9,18 +9,29 @@
     <title>Facturación</title>
 </head>
 <body>
-    <header>
+   <header>
         <div class="logo">
-            <img src="logo1.png" class="logo1" alt="Logo Cellpoint-PV" />
+            <img href="index.html" src="logo1.png" class="logo1">
         </div>
-        <div class="navbar">
+        <i class="fa fa-bars" id="menuIcon" onclick="toggle()"></i>
+        <div class="navbar" id="nav">
             <div class="brand">
-                <h1>Facturación</h1>
+                <h1>Factura</h1>
             </div>
             <ul>
-                <li><a href="index.html"><i class="fa fa-home"></i> Inicio</a></li>
-                <li><a href="factura.html"><i class="fa fa-file-invoice"></i> Factura</a></li>
-                <li><a href="inventario.html"><i class="fa fa-warehouse"></i> Inventario</a></li>
+                <li>
+                    <i class="fa-solid fa-house" id="headIcon"></i>
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-file-invoice" id="headIcon"></i>
+                    <a href="factura.html">Factura</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-warehouse" id="headIcon"></i>
+                    <a href="inventario.html">Inventario</a>
+                </li>
+               
             </ul>
         </div>
     </header>
