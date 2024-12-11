@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="fontawesome.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css" />
+    <title>Facturación</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo1.png" class="logo1" alt="Logo Cellpoint-PV" />
+        </div>
+        <div class="navbar">
+            <div class="brand">
+                <h1>Facturación</h1>
+            </div>
+            <ul>
+                <li><a href="index.html"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a href="factura.html"><i class="fa fa-file-invoice"></i> Factura</a></li>
+                <li><a href="inventario.html"><i class="fa fa-warehouse"></i> Inventario</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="factura-info">
+            <h2>Factura</h2>
+            <div id="cliente-info">
+                <!-- Aquí se insertará la información del cliente -->
+            </div>
+        </section>
+
+        <section class="factura-detalle">
+            <h3>Detalle de la Compra</h3>
+            <table id="factura-detalle">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se insertarán los productos -->
+                </tbody>
+            </table>
+            <div class="totales">
+                <p id="subtotal"></p>
+                <p id="impuesto"></p>
+                <p id="total"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer1">
+        <p>&copy; 2024 CellPoint P-V. Todos los derechos reservados.</p>
+        <p>
+            <a href="https://www.facebook.com" target="_blank" style="text-decoration: none; color: #007bff;">Facebook</a> | 
+            <a href="https://www.twitter.com" target="_blank" style="text-decoration: none; color: #007bff;">Twitter</a> | 
+            <a href="https://www.instagram.com" target="_blank" style="text-decoration: none; color: #007bff;">Instagram</a>
+        </p>
+    </footer>
+
+    <script src="factura.js"></script>
+</body>
+</html>
+
